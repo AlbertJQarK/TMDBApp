@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TMDBapp</string>
+    <string name="noyear">NO YEAR</string>
+    <string name="ok">Accept and Exit</string>
+    <string name="network_problem">Network problem</string>
+    <string name="network_problem_message">The movie database is not available at this time, please try later.</string>
 </resources>

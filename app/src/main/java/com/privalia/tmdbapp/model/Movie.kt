@@ -8,16 +8,20 @@ import java.io.Serializable
  * @author albertj (alberto.guillen.lobo@gmail.com)
  * @since 6-6-18
  */
-data class Movie(
+
+class Movie(
+
         @SerializedName("id") val id: String,
-        @SerializedName("release_date") var release_date: String,
-        @SerializedName("popularity") var popularity: Float,
-        @SerializedName("title") var title: String,
-        @SerializedName("overview") var overview: String,
-        @SerializedName("poster_path") private var posterPath: String,
-        @SerializedName("backdrop_path") private var backdropPath: String
+        @SerializedName("title") val title: String,
+        @SerializedName("release_date") val release_date: String,
+        @SerializedName("overview") val overview: String,
+        @SerializedName("poster_path") val posterPath: String,
+        @SerializedName("popularity") val popularity: String
+
 
 ) : Serializable {
+
+    constructor() : this("", "", "", "", "", "")
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
