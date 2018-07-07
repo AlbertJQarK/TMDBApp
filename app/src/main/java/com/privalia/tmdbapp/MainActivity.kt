@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), MainView{
     }
 
     private fun initializePresenter() {
-        presenterMain = PresenterMain(this)
+        presenterMain = PresenterMain(this,this)
     }
 
     override fun setRV(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {

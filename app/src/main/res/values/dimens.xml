@@ -3,9 +3,10 @@
     <dimen name="margin">16dp</dimen>
     <dimen name="paddingItemDecorationDefault">8dp</dimen>
     <dimen name="paddingItemDecorationEdge">24dp</dimen>
+    <dimen name="margin_top">24dp</dimen>
     <dimen name="margin_content">24dp</dimen>
     <dimen name="margin_half">8dp</dimen>
-    <dimen name="image_width">72dp</dimen>
-    <dimen name="image_height">96dp</dimen>
+    <dimen name="image_width">74dp</dimen>
+    <dimen name="image_height">98dp</dimen>
     <dimen name="margin_quarter">4dp</dimen>
 </resources>

@@ -73,7 +73,7 @@ class PaginationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 movieVH.mTitle.text = result.title
 
                 if (result.release_date.isBlank()) {
-                    movieVH.mYear.text = "NOYEAR"
+                    movieVH.mYear.text = context?.resources?.getString(R.string.noyear)
                 } else {
                     movieVH.mYear.text = result.release_date.substring(0, 4)
                 }
@@ -83,7 +83,6 @@ class PaginationAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 Glide.with(context).load(BuildConfig.TMDB_URL_IMG + result.posterPath)
                         .listener(object : RequestListener<String, GlideDrawable> {
                             override fun onException(e: Exception, model: String, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
-                                // TODO: Handle failure
                                 movieVH.mProgress.visibility = View.GONE
                                 return false
                             }

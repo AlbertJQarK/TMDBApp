@@ -6,18 +6,23 @@ import com.privalia.tmdbapp.api.APIService
 import com.privalia.tmdbapp.model.Movie
 import com.privalia.tmdbapp.model.Results
 
+import android.support.v7.app.AlertDialog
+import android.content.Context;
+
 import java.util.ArrayList
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.app.Activity
+import com.privalia.tmdbapp.R
 
 /**
  * @author albertj (alberto.guillen.lobo@gmail.com)
  * @since 6-6-18
  */
 
-class PresenterMain(private val mainView: MainView) {
+class PresenterMain(private val context: Context, private val mainView: MainView) {
 
     private var pagAdapter: PaginationAdapter = PaginationAdapter()
     private val API by lazy {
@@ -26,6 +31,7 @@ class PresenterMain(private val mainView: MainView) {
 
     private companion object {
         private const val PAGE_START = 1
+        private const val LANGUAGE = "en_US"
     }
 
     var isLoading = false
@@ -36,7 +42,7 @@ class PresenterMain(private val mainView: MainView) {
 
     fun loadFirstPage() {
         currentPage = 1
-        API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, "en_US", currentPage).enqueue(object : Callback<Results> {
+        API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
             override fun onResponse(call: Call<Results>, response: Response<Results>) {
 
                 val results = fetchResults(response)
@@ -53,14 +59,14 @@ class PresenterMain(private val mainView: MainView) {
 
             override fun onFailure(call: Call<Results>, t: Throwable) {
                 t.printStackTrace()
-                // TODO: Handle failure
+                showErrorDialogAndFinish(context)
             }
         })
     }
 
 
     fun loadNextPage() {
-        API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, "en_US", currentPage).enqueue(object : Callback<Results> {
+        API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
             override fun onResponse(call: Call<Results>, response: Response<Results>) {
 
                 isLoading = false
@@ -76,7 +82,7 @@ class PresenterMain(private val mainView: MainView) {
 
             override fun onFailure(call: Call<Results>, t: Throwable) {
                 t.printStackTrace()
-                // TODO: Handle failure
+                showErrorDialogAndFinish(context)
             }
         })
     }
@@ -86,9 +92,21 @@ class PresenterMain(private val mainView: MainView) {
         total_pages = topRatedMovies!!.total_pages
         val movies = ArrayList<Movie>()
         for (movie in topRatedMovies.results) {
-            movies.add(Movie(movie.id, movie.title, movie.release_date, movie.overview, movie.posterPath))
+            movies.add(Movie(movie.id, movie.title, movie.release_date, movie.overview, movie.posterPath, movie.popularity))
         }
 
         return movies
+    }
+
+    private fun showErrorDialogAndFinish(context: Context){
+        val dialog: AlertDialog = AlertDialog.Builder(context)
+                .setTitle(context?.resources?.getString(R.string.network_problem))
+                .setMessage(context?.resources?.getString(R.string.network_problem))
+
+                .setPositiveButton(context?.resources?.getString(R.string.ok)){dialog, which ->
+                    dialog.dismiss()
+                    (context as Activity).finish()
+                }.create()
+        dialog.show()
     }
 }

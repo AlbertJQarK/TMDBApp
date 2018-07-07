@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/margin_content"
-        android:paddingTop="@dimen/margin_content"/>
+        android:paddingTop="@dimen/margin_top"/>
 
 </android.support.design.widget.CoordinatorLayout>
