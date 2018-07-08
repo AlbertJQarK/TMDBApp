@@ -39,7 +39,7 @@ class PresenterMain(private val context: Context, private val mainView: MainView
     var total_pages: Int = 0
     var currentPage = PAGE_START
 
-    fun loadFirstPage(query: String) {
+    fun loadFirstPage(query: String){
         currentPage = 1
         isLastPage = false
         if (query.isEmpty()) {
@@ -47,8 +47,9 @@ class PresenterMain(private val context: Context, private val mainView: MainView
                 override fun onResponse(call: Call<Results>, response: Response<Results>) {
 
                     val movies = fetchResults(response)
+                    if(!pagAdapter.isEmpty())
+                        pagAdapter.removeLoadingFooter()
                     pagAdapter.removeAll()
-                    pagAdapter.removeLoadingFooter()
                     pagAdapter.addAll(movies)
                     mainView.setRV(pagAdapter)
 
@@ -69,8 +70,9 @@ class PresenterMain(private val context: Context, private val mainView: MainView
                 override fun onResponse(call: Call<Results>, response: Response<Results>) {
 
                     val movies = fetchResults(response)
+                    if(!pagAdapter.isEmpty())
+                        pagAdapter.removeLoadingFooter()
                     pagAdapter.removeAll()
-                    pagAdapter.removeLoadingFooter()
                     pagAdapter.addAll(movies)
                     mainView.setRV(pagAdapter)
 
@@ -91,7 +93,7 @@ class PresenterMain(private val context: Context, private val mainView: MainView
     }
 
 
-    fun loadNextPage(query: String) {
+    fun loadNextPage(query: String){
         if (query.isEmpty()) {
             API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
                 override fun onResponse(call: Call<Results>, response: Response<Results>) {
