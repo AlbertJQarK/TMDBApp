@@ -2,6 +2,7 @@ package com.privalia.tmdbapp.api
 
 import com.privalia.tmdbapp.BuildConfig
 import com.privalia.tmdbapp.model.Results
+
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 
@@ -20,6 +21,9 @@ interface APIService {
 
     @GET("3/movie/top_rated")
     fun getTopRatedMovies(@Query("api_key") apiKey: String, @Query("language") language: String, @Query("page") page: Int): Call<Results>
+
+    @GET("3/search/movie")
+    fun doGetMovieList(@Query("api_key") apiKey: String, @Query("query") query: String, @Query("page") page: Int): Call<Results>
 
     companion object {
         fun create(): APIService {

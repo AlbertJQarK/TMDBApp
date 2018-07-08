@@ -4,4 +4,5 @@
     <string name="ok">Accept and Exit</string>
     <string name="network_problem">Network problem</string>
     <string name="network_problem_message">The movie database is not available at this time, please try later.</string>
+    <string name="action_search">Search</string>
 </resources>

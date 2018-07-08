@@ -1,7 +1,9 @@
 package com.privalia.tmdbapp.viewholder
 
 import android.support.v7.widget.RecyclerView
+
 import android.view.View
+
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -14,18 +16,18 @@ import com.privalia.tmdbapp.R
  */
 
 class MovieVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var mTitle: TextView
-    var mOverview: TextView
-    var mYear: TextView
-    var mPoster: ImageView
-    var mProgress: ProgressBar
+    var title: TextView
+    var overview: TextView
+    var year: TextView
+    var poster: ImageView
+    var progress: ProgressBar
 
     init {
 
-        mTitle = itemView.findViewById(R.id.title) as TextView
-        mOverview = itemView.findViewById(R.id.overview) as TextView
-        mYear = itemView.findViewById(R.id.year) as TextView
-        mPoster = itemView.findViewById(R.id.poster) as ImageView
-        mProgress = itemView.findViewById(R.id.image_load) as ProgressBar
+        title = itemView.findViewById(R.id.title) as TextView
+        overview = itemView.findViewById(R.id.overview) as TextView
+        year = itemView.findViewById(R.id.year) as TextView
+        poster = itemView.findViewById(R.id.poster) as ImageView
+        progress = itemView.findViewById(R.id.image_load) as ProgressBar
     }
 }

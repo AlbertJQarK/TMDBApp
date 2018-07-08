@@ -1,11 +1,13 @@
 package com.privalia.tmdbapp
 
-import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.os.Handler
+
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.*
+
+import android.view.Menu
 
 import com.privalia.tmdbapp.pagination.PaginationScrollListener
 import com.privalia.tmdbapp.presenter.MainView
@@ -16,18 +18,21 @@ import com.privalia.tmdbapp.presenter.PresenterMain
  * @since 6-6-18
  */
 
-class MainActivity : AppCompatActivity(), MainView{
+class MainActivity : AppCompatActivity(), MainView, SearchView.OnQueryTextListener{
 
     private var rv: RecyclerView? = null
     private var presenterMain: PresenterMain? = null
     private var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    private var query = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
         initializeView()
         initializePresenter()
-        presenterMain!!.loadFirstPage()
+        presenterMain!!.loadFirstPage("")
     }
 
     private fun initializeView() {
@@ -59,8 +64,28 @@ class MainActivity : AppCompatActivity(), MainView{
                 presenterMain!!.isLoading = true
                 presenterMain!!.currentPage = presenterMain!!.currentPage + 1
 
-                Handler().postDelayed({ presenterMain!!.loadNextPage()}, 1000)
+                Handler().postDelayed({ presenterMain!!.loadNextPage(query)}, 1000)
             }
         })
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = MenuItemCompat.getActionView(menuItem) as android.support.v7.widget.SearchView
+        searchView.setOnQueryTextListener(this)
+        return true
+    }
+
+    override fun onQueryTextSubmit(query: String): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String): Boolean {
+        query = newText
+        presenterMain!!.loadFirstPage(query)
+
+        return true
+    }
+
 }
