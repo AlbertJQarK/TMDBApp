@@ -9,8 +9,8 @@ import android.support.v7.widget.*
 
 import android.view.Menu
 
-import com.privalia.tmdbapp.pagination.PaginationScrollListener
-import com.privalia.tmdbapp.presenter.MainView
+import com.privalia.tmdbapp.view.pagination.PaginationScrollListener
+import com.privalia.tmdbapp.view.MainView
 import com.privalia.tmdbapp.presenter.PresenterMain
 
 /**

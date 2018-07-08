@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp.viewholder
+package com.privalia.tmdbapp.view.viewholder
 
 import android.support.v7.widget.RecyclerView
 

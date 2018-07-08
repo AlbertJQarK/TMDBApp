@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp.adapter
+package com.privalia.tmdbapp.view.pagination
 
 import android.content.Context
 
@@ -17,8 +17,8 @@ import com.bumptech.glide.request.target.Target
 import com.privalia.tmdbapp.BuildConfig
 import com.privalia.tmdbapp.R
 import com.privalia.tmdbapp.model.Movie
-import com.privalia.tmdbapp.viewholder.LoadingVH
-import com.privalia.tmdbapp.viewholder.MovieVH
+import com.privalia.tmdbapp.view.viewholder.LoadingVH
+import com.privalia.tmdbapp.view.viewholder.MovieVH
 
 /**
  * @author albertj (alberto.guillen.lobo@gmail.com)
