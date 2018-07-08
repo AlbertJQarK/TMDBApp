@@ -1,21 +1,21 @@
 package com.privalia.tmdbapp.presenter
 
+import android.app.Activity
+
+import android.content.Context
+
+import android.support.v7.app.AlertDialog
+
 import com.privalia.tmdbapp.BuildConfig
+import com.privalia.tmdbapp.R
 import com.privalia.tmdbapp.adapter.PaginationAdapter
 import com.privalia.tmdbapp.api.APIService
 import com.privalia.tmdbapp.model.Movie
 import com.privalia.tmdbapp.model.Results
 
-import android.support.v7.app.AlertDialog
-import android.content.Context;
-
-import java.util.ArrayList
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.app.Activity
-import com.privalia.tmdbapp.R
 
 /**
  * @author albertj (alberto.guillen.lobo@gmail.com)
@@ -39,60 +39,123 @@ class PresenterMain(private val context: Context, private val mainView: MainView
     var total_pages: Int = 0
     var currentPage = PAGE_START
 
-
-    fun loadFirstPage() {
+    fun loadFirstPage(query: String) {
         currentPage = 1
-        API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
-            override fun onResponse(call: Call<Results>, response: Response<Results>) {
+        isLastPage = false
+        if (query.isEmpty()) {
+            API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
+                override fun onResponse(call: Call<Results>, response: Response<Results>) {
 
-                val results = fetchResults(response)
-                pagAdapter.removeAll()
-                pagAdapter.addAll(results)
-                mainView.setRV(pagAdapter)
+                    val movies = fetchResults(response)
+                    pagAdapter.removeAll()
+                    pagAdapter.removeLoadingFooter()
+                    pagAdapter.addAll(movies)
+                    mainView.setRV(pagAdapter)
 
-                if (currentPage != total_pages) {
-                    pagAdapter.addLoadingFooter()
-                } else {
-                    isLastPage = true
+                    if (currentPage < total_pages) {
+                        pagAdapter.addLoadingFooter()
+                    } else {
+                        isLastPage = true
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<Results>, t: Throwable) {
-                t.printStackTrace()
-                showErrorDialogAndFinish(context)
-            }
-        })
+                override fun onFailure(call: Call<Results>, t: Throwable) {
+                    t.printStackTrace()
+                    showErrorDialogAndFinish(context)
+                }
+            })
+        }else{
+            API.doGetMovieList(BuildConfig.TMDB_API_KEY, query, currentPage).enqueue(object : Callback<Results> {
+                override fun onResponse(call: Call<Results>, response: Response<Results>) {
+
+                    val movies = fetchResults(response)
+                    pagAdapter.removeAll()
+                    pagAdapter.removeLoadingFooter()
+                    pagAdapter.addAll(movies)
+                    mainView.setRV(pagAdapter)
+
+                    if (currentPage < total_pages) {
+                        if (!pagAdapter.isEmpty())
+                            pagAdapter.addLoadingFooter()
+                    } else {
+                        isLastPage = true
+                    }
+                }
+
+                override fun onFailure(call: Call<Results>, t: Throwable) {
+                    t.printStackTrace()
+                    showErrorDialogAndFinish(context)
+                }
+            })
+        }
     }
 
 
-    fun loadNextPage() {
-        API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
-            override fun onResponse(call: Call<Results>, response: Response<Results>) {
+    fun loadNextPage(query: String) {
+        if (query.isEmpty()) {
+            API.getTopRatedMovies(BuildConfig.TMDB_API_KEY, LANGUAGE, currentPage).enqueue(object : Callback<Results> {
+                override fun onResponse(call: Call<Results>, response: Response<Results>) {
 
-                isLoading = false
-                val results = fetchResults(response)
-                pagAdapter.removeLoadingFooter()
-                pagAdapter.addAll(results)
+                    isLoading = false
+                    val movies = fetchResults(response)
+                    pagAdapter.removeLoadingFooter()
+                    pagAdapter.addAll(movies)
 
-                if (currentPage != total_pages)
-                    pagAdapter.addLoadingFooter()
-                else
-                    isLastPage = true
-            }
+                    if (currentPage < total_pages)
+                        pagAdapter.addLoadingFooter()
+                    else
+                        isLastPage = true
+                }
 
-            override fun onFailure(call: Call<Results>, t: Throwable) {
-                t.printStackTrace()
-                showErrorDialogAndFinish(context)
-            }
-        })
+                override fun onFailure(call: Call<Results>, t: Throwable) {
+                    t.printStackTrace()
+                    showErrorDialogAndFinish(context)
+                }
+            })
+        }else{
+            API.doGetMovieList(BuildConfig.TMDB_API_KEY, query, currentPage).enqueue(object : Callback<Results> {
+                override fun onResponse(call: Call<Results>, response: Response<Results>) {
+
+                    isLoading = false
+                    val movies = fetchResults(response)
+                    pagAdapter.removeLoadingFooter()
+                    pagAdapter.addAll(movies)
+
+                    if (currentPage < total_pages)
+                        pagAdapter.addLoadingFooter()
+                    else
+                        isLastPage = true
+                }
+
+                override fun onFailure(call: Call<Results>, t: Throwable) {
+                    t.printStackTrace()
+                    showErrorDialogAndFinish(context)
+                }
+            })
+        }
     }
 
     private fun fetchResults(response: Response<Results>): List<Movie> {
-        val topRatedMovies = response.body()
-        total_pages = topRatedMovies!!.total_pages
-        val movies = ArrayList<Movie>()
-        for (movie in topRatedMovies.results) {
-            movies.add(Movie(movie.id, movie.title, movie.release_date, movie.overview, movie.posterPath, movie.popularity))
+        val data = response.body()
+        total_pages = data!!.total_pages
+        var movies = ArrayList<Movie>()
+        var title = ""
+        var posterPath = ""
+        var release_date = ""
+        var overview = ""
+        var popularity = ""
+        for (movie in data.results) {
+            if(movie.title != null)
+                title = movie.title
+            if(movie.release_date != null)
+                release_date = movie.release_date
+            if(movie.overview != null)
+                overview = movie.overview
+            if(movie.posterPath != null)
+                posterPath = movie.posterPath
+            if(movie.popularity != null)
+                popularity = movie.popularity
+            movies.add(Movie(movie.id, title, release_date, overview, posterPath, popularity))
         }
 
         return movies
@@ -101,9 +164,9 @@ class PresenterMain(private val context: Context, private val mainView: MainView
     private fun showErrorDialogAndFinish(context: Context){
         val dialog: AlertDialog = AlertDialog.Builder(context)
                 .setTitle(context?.resources?.getString(R.string.network_problem))
-                .setMessage(context?.resources?.getString(R.string.network_problem))
+                .setMessage(context?.resources?.getString(R.string.network_problem_message))
 
-                .setPositiveButton(context?.resources?.getString(R.string.ok)){dialog, which ->
+                .setPositiveButton(context?.resources?.getString(R.string.ok)){ dialog, _ ->
                     dialog.dismiss()
                     (context as Activity).finish()
                 }.create()

@@ -8,9 +8,6 @@ import android.support.v7.widget.RecyclerView
  */
 
 interface MainView {
-    /**
-     * Set RecyclerView for result search
-     * @param adapter
-     */
+
     fun setRV(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>)
 }
