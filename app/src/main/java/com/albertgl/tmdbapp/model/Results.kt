@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp.model
+package com.albertgl.tmdbapp.model
 
 import java.util.ArrayList
 

@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp.view.viewholder
+package com.albertgl.tmdbapp.view.viewholder
 
 import android.support.v7.widget.RecyclerView
 
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 
-import com.privalia.tmdbapp.R
+import com.albertgl.tmdbapp.R
 
 /**
  * @author albertj (alberto.guillen.lobo@gmail.com)

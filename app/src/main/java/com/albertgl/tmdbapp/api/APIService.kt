@@ -1,7 +1,7 @@
-package com.privalia.tmdbapp.api
+package com.albertgl.tmdbapp.api
 
-import com.privalia.tmdbapp.BuildConfig
-import com.privalia.tmdbapp.model.Results
+import com.albertgl.tmdbapp.BuildConfig
+import com.albertgl.tmdbapp.model.Results
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -1,15 +1,15 @@
-package com.privalia.tmdbapp.presenter
+package com.albertgl.tmdbapp.presenter
 
 import android.app.Activity
 import android.content.Context
 import android.support.v7.app.AlertDialog
-import com.privalia.tmdbapp.BuildConfig
-import com.privalia.tmdbapp.R
-import com.privalia.tmdbapp.api.APIService
-import com.privalia.tmdbapp.model.Movie
-import com.privalia.tmdbapp.model.Results
-import com.privalia.tmdbapp.view.MainView
-import com.privalia.tmdbapp.view.pagination.PaginationAdapter
+import com.albertgl.tmdbapp.BuildConfig
+import com.albertgl.tmdbapp.R
+import com.albertgl.tmdbapp.api.APIService
+import com.albertgl.tmdbapp.model.Movie
+import com.albertgl.tmdbapp.model.Results
+import com.albertgl.tmdbapp.view.MainView
+import com.albertgl.tmdbapp.view.pagination.PaginationAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

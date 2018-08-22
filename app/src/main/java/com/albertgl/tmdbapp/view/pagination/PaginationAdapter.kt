@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp.view.pagination
+package com.albertgl.tmdbapp.view.pagination
 
 import android.content.Context
 
@@ -14,11 +14,11 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
-import com.privalia.tmdbapp.BuildConfig
-import com.privalia.tmdbapp.R
-import com.privalia.tmdbapp.model.Movie
-import com.privalia.tmdbapp.view.viewholder.LoadingVH
-import com.privalia.tmdbapp.view.viewholder.MovieVH
+import com.albertgl.tmdbapp.BuildConfig
+import com.albertgl.tmdbapp.R
+import com.albertgl.tmdbapp.model.Movie
+import com.albertgl.tmdbapp.view.viewholder.LoadingVH
+import com.albertgl.tmdbapp.view.viewholder.MovieVH
 
 /**
  * @author albertj (alberto.guillen.lobo@gmail.com)

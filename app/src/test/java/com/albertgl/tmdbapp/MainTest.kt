@@ -3,9 +3,9 @@ import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.privalia.tmdbapp.MainActivity
-import com.privalia.tmdbapp.R
-import com.privalia.tmdbapp.view.viewholder.MovieVH
+import com.albertgl.tmdbapp.MainActivity
+import com.albertgl.tmdbapp.R
+import com.albertgl.tmdbapp.view.viewholder.MovieVH
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp
+package com.albertgl.tmdbapp
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,9 +9,9 @@ import android.support.v7.widget.*
 
 import android.view.Menu
 
-import com.privalia.tmdbapp.view.pagination.PaginationScrollListener
-import com.privalia.tmdbapp.view.MainView
-import com.privalia.tmdbapp.presenter.PresenterMain
+import com.albertgl.tmdbapp.view.pagination.PaginationScrollListener
+import com.albertgl.tmdbapp.view.MainView
+import com.albertgl.tmdbapp.presenter.PresenterMain
 
 /**
  * @author albertj (alberto.guillen.lobo@gmail.com)

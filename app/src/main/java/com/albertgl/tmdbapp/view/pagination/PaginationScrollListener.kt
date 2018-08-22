@@ -1,4 +1,4 @@
-package com.privalia.tmdbapp.view.pagination
+package com.albertgl.tmdbapp.view.pagination
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
